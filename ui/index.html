@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        ClipShare
+    </title>
+    <body onload="getClip()">
+        <h3>
+            ClipShare
+        </h3>
+        <h4>
+            The online clipboard
+        </h4>
+        <br/>
+        <button onclick="saveClip()">Save</button>
+        <button onclick="getClip()">Refresh</button>
+        <br/>
+        <textarea id="clipData" rows="50" cols="80"></textarea>        
+    </body>
+    <script>
+        var clipData = document.getElementById("clipData");
+        var url = new URL(window.location.href);
+        var parts = url.pathname.split('\/');
+        var clipId = parts.length>1?parts[parts.length-1]:"";
+        var clipUrl = "/api/" + clipId;
+
+        function getClip() {
+            var url = new URL(window.location.href);
+            var parts = url.pathname.split('\/');
+            var clipId = parts.length>1?parts[parts.length-1]:"";
+            var clipUrl = "/api/" + clipId;
+
+            if(clipId.length > 0){            
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function(){
+                    if (this.readyState == 4 && this.status == 200) {
+                        clipData.value = this.responseText;
+                    }
+                }
+                xhr.open("GET", clipUrl);
+                xhr.send()     
+            }
+        }
+        
+        function saveClip() {
+            var url = new URL(window.location.href);
+            var parts = url.pathname.split('\/');
+            var clipId = parts.length>1?parts[parts.length-1]:"";
+            var clipUrl = "/api/" + clipId;
+
+            var clip = clipData.value;
+            var xhr = new XMLHttpRequest();
+            xhr.onloadend = function(){
+                console.log(this.status)
+                if(this.status == 201){
+                    var loc = xhr.getResponseHeader("Location");
+                    if(loc){
+                        window.location.href = loc;
+                    }
+                }
+            }
+            xhr.open("POST",clipUrl);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.send(JSON.stringify({
+                data: clip
+            }))     
+        }
+    </script>
+</html>

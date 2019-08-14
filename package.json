@@ -1,0 +1,36 @@
+{
+  "name": "clipshare",
+  "version": "1.0.0",
+  "description": "Simple, real time, free, clipboard",
+  "main": "backend/index.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "https://github.com/hornbill-tech/clipshare.git",
+    "url": "clipshare"
+  },
+  "keywords": [
+    "clip",
+    "clipboard",
+    "copy",
+    "share",
+    "web-clip",
+    "cl1p",
+    "clips",
+    "paste",
+    "copy-paste",
+    "online",
+    "clipboard"
+  ],
+  "author": "Debarghya Bhattacharya",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1"
+  }
+}
