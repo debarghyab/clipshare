@@ -5,18 +5,9 @@ const clipboard = require('../src/clipboard');
 
 router.get('/:clipId', function (req, res, next) {
   let clipId = req.params.clipId;
-  if(!clipId){
-    res
-  }
   let clip = clipboard.getClip(clipId);
   res.send(clip);
 });
-
-// router.get('/', function (req, res, next) {
-//   let userId = req.params.userId;
-//   let clipId = util.generateClipId(userId);
-//   res.redirect(clipId);
-// });
 
 router.post('/', function (req, res, next) {
   let clipId = util.generateClipId();
